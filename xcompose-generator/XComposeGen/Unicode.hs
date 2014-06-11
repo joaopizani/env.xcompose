@@ -1,4 +1,4 @@
-module XComposeGen.Unicode (greek, symbols, subscripts, superscripts, checkAmbs, disamb) where
+module XComposeGen.Unicode (greek, symbols, subscripts, superscripts, disamb) where
 
 import Data.Char (toUpper)
 import Data.List (isPrefixOf)
@@ -166,13 +166,6 @@ superscripts = zipscripts '^'
   "0123456789+-=()abcdefghijklmnoprstuvwxyzABDEGHIJKLMNOPRTUW"
   "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁᵂ"
 
-
-
-checkAmbs :: [(String, String)] -> [(String, String)]
-checkAmbs table = check
-    where ambs = [ (x, y) | v@(x, _) <- table, w@(y, _) <- table,  v /= w, x `isPrefixOf` y ]
-          check | null ambs = table
-                | otherwise = error $ "checkAmbs: ambiguous declarations for " ++ show ambs
 
 
 disamb :: [(String, String)] -> [(String, String)]
