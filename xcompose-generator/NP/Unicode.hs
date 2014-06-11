@@ -170,21 +170,15 @@ superscripts = zipscripts '^'
 
 checkAmbs :: [(String, String)] -> [(String, String)]
 checkAmbs table = check
-  where ambs = [ (x, y) | v@(x, _) <- table, w@(y, _) <- table
-                                           , v /= w
-                                           , x `isPrefixOf` y ]
-        check | null ambs = table
-              | otherwise = error $ "checkAmbs: ambiguous declarations for " ++ show ambs
+    where ambs = [ (x, y) | v@(x, _) <- table, w@(y, _) <- table,  v /= w, x `isPrefixOf` y ]
+          check | null ambs = table
+                | otherwise = error $ "checkAmbs: ambiguous declarations for " ++ show ambs
 
 
 disamb :: [(String, String)] -> [(String, String)]
 disamb table = concatMap f table
-  where f v@(x, vx) =
-            let ambs = [ w
-                       | w@(y, _) <- table
-                       , v /= w
-                       , x `isPrefixOf` y ]
-            in if null ambs then [v] else [(x ++ " ", vx), (x ++ "\t", vx)]
+    where f e@(k, v) = if null ambs then [e] else [(k ++ " ", v), (k ++ "\t", v)]
+              where ambs = [ e2 | e2@(k2, _) <- table,  e /= e2, k `isPrefixOf` k2 ]
 
 
 
