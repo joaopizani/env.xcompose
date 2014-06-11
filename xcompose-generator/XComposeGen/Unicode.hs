@@ -1,4 +1,4 @@
-module NP.Unicode (greek, symbols, subscripts, superscripts, checkAmbs, disamb) where
+module XComposeGen.Unicode (greek, symbols, subscripts, superscripts, checkAmbs, disamb) where
 
 import Data.Char (toUpper)
 import Data.List (isPrefixOf)
