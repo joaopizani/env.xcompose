@@ -1,9 +1,9 @@
 {-# LANGUAGE PatternGuards #-}
-import NP.Unicode
 import Data.Char (isAscii, isAlphaNum, ord)
 import Data.List (intercalate)
 import Control.Monad (liftM)
 import System.Environment (getArgs)
+import XComposeGen.Unicode
 
 
 main :: IO ()

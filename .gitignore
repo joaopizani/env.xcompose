@@ -1,6 +1,6 @@
 *.swp
-/xcompose-generator/NP/Unicode.hi
-/xcompose-generator/NP/Unicode.o
+/xcompose-generator/XComposeGen/Unicode.hi
+/xcompose-generator/XComposeGen/Unicode.o
 /xcompose-generator/XComposeGenerator.hi
 /xcompose-generator/XComposeGenerator.o
 /xcompose-generator/XComposeGenerator
