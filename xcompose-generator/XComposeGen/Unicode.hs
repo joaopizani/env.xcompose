@@ -58,8 +58,8 @@ accents = concat
   , f 'x' (' ',' ',' ',' ',' ',' ',' ','ẋ'),     f 'y' ('ý',' ','ŷ','ÿ',' ',' ',' ','ẏ')
   , f 'z' (' ',' ',' ',' ',' ',' ',' ','ż') ]
   where
-    f key (cute, grav, circ, diar, tild, ring, ced, dot) =
-      concat [b 'e' cute, b '`' grav, b 'i' circ, b 'u' diar, b '~' tild, b 'o' ring, b ',' ced, b '.' dot]
+    f key (cute, grav, hat, diar, tild, ring, ced, dot) =
+      concat [b '\'' cute, b '`' grav, b 'i' hat, b ':' diar, b '~' tild, b 'o' ring, b ',' ced, b '.' dot]
       where
         b p ac = if ac == ' ' then [] else [ ([p, key], [ac]),  ([p, toUpper key], [toUpper ac]) ]
 
