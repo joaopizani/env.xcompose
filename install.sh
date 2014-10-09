@@ -16,3 +16,7 @@ popd
 echo "Running the generator..."
 "${DIR}/${GENERATORDIR}/${MAINMODULE}" "${XCOMPOSEFILEPATH}"
 ln -s -f -n "${XCOMPOSEFILEPATH}" "${HOME}/.XCompose"
+
+xrdb -merge "${HOME}/.XCompose"
+echo "XComposed shortcuts generated and merged. Now set the Compose key in the OS."
+
