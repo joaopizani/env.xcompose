@@ -20,3 +20,5 @@ ln -s -f -n "${XCOMPOSEFILEPATH}" "${HOME}/.XCompose"
 xrdb -merge "${HOME}/.XCompose"
 echo "XComposed shortcuts generated and merged. Now set the Compose key in the OS."
 
+ln -s -f -n "${DIR}/${GENERATORDIR}/XComposeGen/Unicode.hs" "${HOME}/Unicode.hs"
+
