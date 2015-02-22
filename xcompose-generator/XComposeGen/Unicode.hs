@@ -29,7 +29,7 @@ greekData =
 
 
 symbols :: [(String, String)]
-symbols = concat [custom, pars, accents, mathbb, mathcal, circled, simple]
+symbols = concat [custom, pars, accents, mathbb, mathother, mathcal, circled, simple]
 
 
 custom, pars, accents, mathbb, mathcal, circled, simple :: [(String,String)]
@@ -70,10 +70,12 @@ mathbb = [ (lead : l, [u]) | lead <- ['\\','b'], (l,u) <- mathbb' ]
                     , ("3",'𝟛'),  ("4",'𝟜'),   ("5",'𝟝'),   ("6",'𝟞'),   ("7",'𝟟'),   ("8",'𝟠')
                     , ("9",'𝟡'),  ("b",'𝔹'),   ("w",'𝕎'),   ("gG",'ℾ'),  ("gP",'ℿ'),  ("gS",'⅀') ]
 
-mathcal =
-    [ ("cP","℘"), ("cL","ℒ"), ("cR","ℛ"), ("cN","𝒩"), ("cE","ℰ"), ("cF","ℱ"), ("cH","ℋ")
-    , ("cI","ℐ"), ("cM","ℳ"), ("ce","ℯ"), ("cg","ℊ"), ("co","ℴ"), ("cl","ℓ") ]
+mathother = [ ("|c", "¢"), ("bc", "𝐜"), ("bC", "𝐂") ]
 
+mathcal =
+    [ ("cP","℘"), ("cL","ℒ"), ("cR","ℛ")
+    , ("cC","𝒞"), ("cD","𝒟")
+    , ("cE","ℰ"), ("cF","ℱ"), ("cH","ℋ"), ("cI","ℐ"), ("cM","ℳ"), ("ce","ℯ"), ("cg","ℊ"), ("co","ℴ"), ("cl","ℓ") ]
 
 circled =
     [ ("oo","°"), ("o^","°"), ("ob","●"), ("op","∙"), ("ow","○"), ("ov","⎉"), ("o..","◌"), ("oO","◯")
@@ -208,7 +210,6 @@ d- "₫" # DONG SIGN
    "₴" # HRYVNIA SIGN
    "₵" # CEDI SIGN
 |c "¢" # CENT SIGN
-c| "¢" # CENT SIGN
 c/ "¢" # CENT SIGN
 /c "¢" # CENT SIGN
 -}
