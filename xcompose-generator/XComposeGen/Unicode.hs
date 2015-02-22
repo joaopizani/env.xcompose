@@ -7,24 +7,13 @@ import Control.Applicative
 
 
 greek :: [(String, String)]
-greek = [ (name, unicode)          | (_,          name, unicode) <- greekData] ++
-        [ ([lead, short], unicode) | (Just short, _,    unicode) <- greekData , lead <- "*"]
-
--- | Triples: (shorthand, name, unicode)
-greekData :: [(Maybe Char, String, String)]
-greekData =
-    [ (Just 'a' , "alpha"   , "α"),   (Just 'b' , "beta"    , "β"),   (Just 'g' , "gamma"   , "γ")
-    , (Just 'G' , "Gamma"   , "Γ"),   (Just 'd' , "delta"   , "δ"),   (Just 'D' , "Delta"   , "Δ")
-    , (Just 'e' , "epsilon" , "ε"),   (Just 'z' , "zeta"    , "ζ"),   (Just 'N' , "eta"     , "η")
-    , (Just 'E' , "eta"     , "η"),   (Nothing  , "theta"   , "θ"),   (Nothing  , "Theta"   , "Θ")
-    , (Just 'i' , "iota"    , "ι"),   (Just 'k' , "kapa"    , "κ"),   (Just 'l' , "lambda"  , "λ")
-    , (Just 'L' , "Lambda"  , "Λ"),   (Just 'm' , "mu"      , "μ"),   (Just 'n' , "nu"      , "ν")
-    , (Just 'x' , "xi"      , "ξ"),   (Just 'o' , "omicron" , "ο"),   (Just 'p' , "pi"      , "π")
-    , (Just 'P' , "Pi"      , "Π"),   (Just 'r' , "rho"     , "ρ"),   (Just 's' , "sigma"   , "σ")
-    , (Just 'S' , "Sigma"   , "Σ"),   (Just 't' , "tau"     , "τ"),   (Just 'f' , "phi"     , "φ")
-    , (Just 'F' , "Phi"     , "Φ"),   (Just 'c' , "chi"     , "χ"),   (Just 'C' , "Chi"     , "Χ")
-    , (Nothing  , "psi"     , "ψ"),   (Nothing  , "Psi"     , "Ψ"),   (Just 'w' , "omega"   , "ω")
-    , (Just 'O' , "Omega"   , "Ω") ]
+greek = [ (lead : short, unicode) | (short, unicode) <- greek' , lead <- ['*'] ]
+    where greek' =
+            [ ("a","α"), ("b","β"), ("g","γ"), ("G","Γ"), ("d","δ"), ("D","Δ"), ("e","ε"), ("N","η")
+            , ("E","η"), ("f","φ"), ("F","Φ"), ("i","ι"), ("k","κ"), ("l","λ"), ("L","Λ"), ("m","μ")
+            , ("n","ν"), ("x","ξ"), ("o","ο"), ("p","π"), ("P","Π"), ("r","ρ"), ("s","σ"), ("S","Σ")
+            , ("q","ψ"), ("Q","Ψ"), ("t","τ"), ("h","θ"), ("T","Θ"), ("c","χ"), ("C","Χ"), ("w","ω")
+            , ("O","Ω"), ("z","ζ") ]
 
 
 
