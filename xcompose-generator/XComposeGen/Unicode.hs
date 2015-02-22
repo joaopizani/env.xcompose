@@ -29,12 +29,12 @@ greekData =
 
 
 symbols :: [(String, String)]
-symbols = concat [custom, pars, accents, mathbb, mathother, mathcal, circled, simple]
+symbols = concat [custom, pars, accents, combining, mathbb, mathother, mathcal, circled, simple]
 
 
-custom, pars, accents, mathbb, mathcal, circled, simple :: [(String,String)]
+custom, pars, accents, combining, mathbb, mathcal, circled, simple :: [(String,String)]
 
-custom = [ ("jp", "joaopizani"),  ("jp@", "joaopizani@gmail.com") ]
+custom = [ ("@u", "joaopizani"),  ("@m", "joaopizani@gmail.com") ]
 
 pars = concat [map fst parPairs, map snd parPairs, map both parPairs]
     where
@@ -59,16 +59,18 @@ accents = concat
   , f 'z' (' ',' ',' ',' ',' ',' ',' ','ż') ]
   where
     f key (cute, grav, hat, diar, tild, ring, ced, dot) =
-      concat [b '\'' cute, b '`' grav, b 'i' hat, b ':' diar, b '~' tild, b 'o' ring, b ',' ced, b '.' dot]
+      concat [b '\'' cute, b '`' grav, b 'i' hat, b ';' diar, b '~' tild, b 'o' ring, b ',' ced, b '.' dot]
       where
         b p ac = if ac == ' ' then [] else [ ([p, key], [ac]),  ([p, toUpper key], [toUpper ac]) ]
 
+combining = [ (lead : l, u) | lead <- ['0'], (l,u) <- combining' ]
+    where combining' = [ ("'","́"),  ("`","̀"),  ("i","̂"),  (";", "̈"),  ("~","̃"),  ("o","̊"),  (",","̧"),  (".","̇") ]
 
-mathbb = [ (lead : l, [u]) | lead <- ['\\','b'], (l,u) <- mathbb' ]
-    where mathbb' = [ ("e",'𝔼'),  ("n",'ℕ'),   ("h",'ℍ'),   ("p",'ℙ'),   ("r",'ℝ'),   ("c",'ℂ')
-                    , ("d",'ⅅ'),  ("q",'ℚ'),   ("z",'ℤ'),   ("0",'𝟘'),   ("1",'𝟙'),   ("2",'𝟚')
-                    , ("3",'𝟛'),  ("4",'𝟜'),   ("5",'𝟝'),   ("6",'𝟞'),   ("7",'𝟟'),   ("8",'𝟠')
-                    , ("9",'𝟡'),  ("b",'𝔹'),   ("w",'𝕎'),   ("gG",'ℾ'),  ("gP",'ℿ'),  ("gS",'⅀') ]
+mathbb = [ (lead : l, u) | lead <- ['\\'], (l,u) <- mathbb' ]
+    where mathbb' = [ ("e","𝔼"),  ("n","ℕ"),   ("h","ℍ"),   ("p", "ℙ"),   ("r","ℝ"),   ("c","ℂ")
+                    , ("d","ⅅ"),  ("q","ℚ"),   ("z","ℤ"),   ("0", "𝟘"),   ("1","𝟙"),   ("2","𝟚")
+                    , ("3","𝟛"),  ("4","𝟜"),   ("5","𝟝"),   ("6", "𝟞"),   ("7","𝟟"),   ("8","𝟠")
+                    , ("9","𝟡"),  ("b","𝔹"),   ("w","𝕎"),   ("gG","ℾ"),  ("gP","ℿ"),  ("gS","⅀") ]
 
 mathother = [ ("|c", "¢"), ("bc", "𝐜"), ("bC", "𝐂") ]
 
