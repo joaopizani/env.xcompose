@@ -3,11 +3,6 @@
 DIR="$(cd -P "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
 
 
-sudo apt-get update
-sudo apt-get install uim
-im-config -n uim
-
-
 GENERATORDIR="xcompose-generator"
 MAINMODULE="XComposeGenerator"
 
@@ -23,8 +18,8 @@ echo "Running the generator..."
 "${DIR}/${GENERATORDIR}/${MAINMODULE}" "${XCOMPOSEFILEPATH}"
 ln -s -f -n "${XCOMPOSEFILEPATH}" "${HOME}/.XCompose"
 
-xrdb -merge "${HOME}/.XCompose"
-echo "XComposed shortcuts generated and merged. Now set the Compose key in the OS."
+#xrdb -merge "${HOME}/.XCompose"
+#echo "XComposed shortcuts generated and merged. Now set the Compose key in the OS."
 
 ln -s -f -n "${DIR}/${GENERATORDIR}/XComposeGen/Unicode.hs" "${HOME}/Unicode.hs"
 
