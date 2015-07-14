@@ -1,29 +1,29 @@
 {-# LANGUAGE PatternGuards #-}
 import Data.Char (isAscii, isAlphaNum, ord)
-import Data.List (intercalate)
+import Data.List (intercalate, isPrefixOf)
 import Control.Monad (liftM)
 import System.Environment (getArgs)
-import XComposeGen.Unicode
+import XComposeGen.Unicode (greek, subscripts, superscripts, symbols)
 
 
 main :: IO ()
-main = liftM head getArgs >>= flip writeFile (bindings ++ footer)
-    where footer = ""
+main = liftM head getArgs >>= flip writeFile (process bindings)
 
-bindings :: String
-bindings = unlines . map genLine $ disamb $ concat [greek, symbols, subscripts, superscripts]
+bindings :: [(String, String)]
+bindings = concat [greek, subscripts, superscripts, symbols]
 
-genLine :: (String, String) -> String
-genLine (name, target) = "<Multi_key> " ++ keysFromString name ++ " : \"" ++ target ++ "\""
-    where keysFromString = intercalate " " . map keyFromChar
+process :: [(String, String)] -> String
+process = unlines . map genLine . disamb
+  where genLine (name, target) = "<Multi_key> " ++ keysFromString name ++ " : \"" ++ target ++ "\""
+          where keysFromString = intercalate " " . map keyFromChar
 
 keyFromChar :: Char -> String
 keyFromChar c | isAscii c && isAlphaNum c   = ['<',c,'>']
               | Just s <- lookup c keyNames = concat ["<",s,">"]
-              | otherwise = error $ "keyFromChar: incomplete table, unexpected '"
-                                        ++ [c] ++ "' (" ++ show (ord c) ++ ")"
+              | otherwise                  = error $ "keyFromChar: incomplete table, unexpected '"
+                                                       ++ [c] ++ "' (" ++ show (ord c) ++ ")"
 
--- NOTE: /usr/include/X11/keysymdef.h
+-- NOTE: keysymdef.h
 keyNames :: [(Char,String)]
 keyNames =
     [ ('\'', "apostrophe"),    ('`', "grave"),         ('<', "less"),         ('>', "greater")
@@ -36,3 +36,10 @@ keyNames =
     , (' ', "space"),          ('\t',"tab"),           ('@', "at"),           ('\n',"Return")
     , ('→', "Right"),          ('←', "Left"),          ('↑', "Up"),           ('↓', "Down")
     , ('&', "ampersand") ]
+
+
+disamb :: [(String, String)] -> [(String, String)]
+disamb table = concatMap f table
+  where f e@(k, v) = if null ambs then [e] else [(k ++ " ", v), (k ++ "\t", v)]
+          where ambs = [ e2 | e2@(k2, _) <- table,  e /= e2, k `isPrefixOf` k2 ]
+
