@@ -35,7 +35,7 @@ keyNames =
     , ('*', "asterisk"),       ('"', "quotedbl"),      ('#', "numbersign"),   (',', "comma")
     , (' ', "space"),          ('\t',"tab"),           ('@', "at"),           ('\n',"Return")
     , ('→', "Right"),          ('←', "Left"),          ('↑', "Up"),           ('↓', "Down")
-    , ('&', "ampersand") ]
+    , ('&', "ampersand"),      ('$', "dollar"),        ('%', "percent")  ]
 
 
 disamb :: [(String, String)] -> [(String, String)]

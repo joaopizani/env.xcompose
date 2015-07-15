@@ -11,7 +11,9 @@ lead ld ps = [ (ld : k, v) | (k, v) <- ps ]
 
 mkPs :: String -> [(String, String)]
 mkPs = mkPs' . filter (/= ' ')
-  where mkPs' s = let ((k : v), r) = splitAt 2 s in  ([k], v) : mkPs' r
+  where mkPs' s = let (kv, r) = splitAt 2 s  in  case kv of
+                                                   []      -> []
+                                                   (k : v) -> ([k], v) : mkPs' r
 
 
 greek :: [(String, String)]
