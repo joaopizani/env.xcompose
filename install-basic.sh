@@ -8,6 +8,13 @@ MAINMODULE="XComposeGenerator"
 
 XCOMPOSEFILEPATH="${DIR}/XCompose"
 
+HOMEUNICODE_DIR_NAME="Unicode"
+HOMEUNICODE_DIR="${HOME}/${HOMEUNICODE_DIR_NAME}"
+
+HSUNICODE_MODULES_NAMES=('Letterlike' 'Symbols')
+HSUNICODE_DIR_NAME="xcompose-generator/XComposeGen"
+HSUNICODE_DIR="${DIR}/${HSUNICODE_DIR_NAME}"
+
 
 pushd "${DIR}/${GENERATORDIR}"
   echo "Rebuilding XCompose (the generator)..."
@@ -21,5 +28,8 @@ ln -s -f -n "${XCOMPOSEFILEPATH}" "${HOME}/.XCompose"
 xrdb -merge "${HOME}/.XCompose"
 echo "XComposed shortcuts generated and merged. Now set the Compose key in the OS."
 
-ln -s -f -n "${DIR}/${GENERATORDIR}/XComposeGen/Unicode.hs" "${HOME}/Unicode.hs"
+mkdir -p "${HOMEUNICODE_DIR}"
+for m in "${HSUNICODE_MODULES_NAMES[@]}"; do
+    ln -s -f -n "${HSUNICODE_DIR}/${m}.hs" "${HOMEUNICODE_DIR}/${m}.hs"
+done
 
